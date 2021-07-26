@@ -43,6 +43,68 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <relocations>
+                <relocation>
+                  <pattern>^abcl-asdf/(.*)$</pattern>
+                  <shadedPattern>contrib/abcl-asdf/$1</shadedPattern>
+                  <rawString>true</rawString>
+                </relocation>
+                <relocation>
+                  <pattern>^abcl-build/(.*)$</pattern>
+                  <shadedPattern>contrib/abcl-build/$1</shadedPattern>
+                  <rawString>true</rawString>
+                </relocation>
+                <relocation>
+                  <pattern>^abcl-introspect/(.*)$</pattern>
+                  <shadedPattern>contrib/abcl-introspect/$1</shadedPattern>
+                  <rawString>true</rawString>
+                </relocation>
+                <relocation>
+                  <pattern>^asdf-jar/(.*)$</pattern>
+                  <shadedPattern>contrib/asdf-jar/$1</shadedPattern>
+                  <rawString>true</rawString>
+                </relocation>
+                <relocation>
+                  <pattern>^jfli/(.*)$</pattern>
+                  <shadedPattern>contrib/jfli/$1</shadedPattern>
+                  <rawString>true</rawString>
+                </relocation>
+                <relocation>
+                  <pattern>^jss/(.*)$</pattern>
+                  <shadedPattern>contrib/jss/$1</shadedPattern>
+                  <rawString>true</rawString>
+                </relocation>
+                <relocation>
+                  <pattern>^mvn/(.*)$</pattern>
+                  <shadedPattern>contrib/mvn/$1</shadedPattern>
+                  <rawString>true</rawString>
+                </relocation>
+                <relocation>
+                  <pattern>^named-readtables/(.*)$</pattern>
+                  <shadedPattern>contrib/named-readtables/$1</shadedPattern>
+                  <rawString>true</rawString>
+                </relocation>
+                <relocation>
+                  <pattern>^quicklisp/(.*)$</pattern>
+                  <shadedPattern>contrib/quicklisp/$1</shadedPattern>
+                  <rawString>true</rawString>
+                </relocation>
+              </relocations>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.2.0</version>
         <configuration>
@@ -54,6 +116,15 @@
               <addClasspath>true</addClasspath>
               <mainClass>org.dipert.abcl.Main</mainClass>
             </manifest>
+            <manifestSections>
+              <manifestSection>
+                <name>contrib</name>
+                <manifestEntries>
+                  <Implementation-Title>org.abcl-contrib</Implementation-Title>
+                  <Implementation-Version>${abcl.version}</Implementation-Version>
+                </manifestEntries>
+              </manifestSection>
+            </manifestSections>
           </archive>
         </configuration>
         <executions>
